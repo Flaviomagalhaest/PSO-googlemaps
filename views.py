@@ -8,12 +8,12 @@ from django.views.decorators.http import require_http_methods
 import json
 
 def index(request):
-    template = loader.get_template('googlemapspso/index.html')
+    template = loader.get_template('PSO-googlemaps/index.html')
     key = cc.inicializaConfig()
     context = {
         'key': key.key
     }
-    return render(request,'googlemapspso/index.html',context)
+    return render(request,'PSO-googlemaps/index.html',context)
 
 @csrf_exempt
 @require_http_methods(['POST']) 

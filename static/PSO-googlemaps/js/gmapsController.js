@@ -38,7 +38,7 @@ function placeMarker(location, map) {
 function envioCoord() {
     $.ajax({        
         type:'POST',
-        url:'/googlemapspso/teste/',
+        url:'/PSO-googlemaps/teste/',
         contentType: 'application/json; charset=utf-8',
         traditional: true,
         data: JSON.stringify(coord),
