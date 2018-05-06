@@ -3,14 +3,34 @@
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{ key }}&libraries=geometry"></script>
 <script type="text/javascript" src="{% static "PSO-googlemaps/js/jquery.min.js" %}"></script>
 <script type="text/javascript" src="{% static "PSO-googlemaps/js/gmapsController.js" %}"></script>
-<link rel="stylesheet" type="text/css" href="{% static "PSO-googlemaps/css/styles.css" %}">
+<link rel="stylesheet" type="text/css" href="{% static "PSO-googlemaps/css/furtive.css" %}">
+<link rel="stylesheet" type="text/css" href="{% static "PSO-googlemaps/css/style.css" %}">
 
 <body>
-    <h1> {{ teste }}</h1>
-    <div id="map-canvas" style="height: 30%; width: 30%;"></div>
-    <input type="submit" class="button" id="calc_rota" onClick="envioCoord()" value="Calcular rota">
-    <div>
-        <img id="mapa" src="#"></img>
+<div id="tela">
+        <div id="map-canvas"></div>
+</div>
+
+
+<div id="menu">
+    <div class="itemMenu">
+        <div class="botaoMenuDiv">
+            <input type="text" id="qtdIndiv" placeholder="Qtd. de Individuos">
+        </div>
     </div>
+    <div class="itemMenu">
+        <div class="botaoMenuDiv">
+            <input type="text" id="qtdIteracao" placeholder="Qtd. de Iterações">
+        </div>        
+        <div class="botaoMenuDiv">
+            <a id="gerarProxIteracaoClick" onclick="envioCoord()" class="botaoMenu btn--blue">Gera Iteração</a>
+        </div>
+    </div>
+    <div class="itemMenu">
+        <div class="botaoMenuDiv">
+            <a id="limpar" onclick="limparTelaClick()" class="botaoMenu btn--green">Limpar</a>
+        </div>
+    </div>
+</div>
 </body>
 </html>
