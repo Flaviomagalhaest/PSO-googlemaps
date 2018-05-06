@@ -17,10 +17,14 @@ def index(request):
 
 @csrf_exempt
 @require_http_methods(['POST']) 
-def teste(request):
-    jsonAjax = (request.body).decode('utf-8')
-    coordenadas = json.loads(jsonAjax)
-    resultado = main.pso(coordenadas)
+def calcIteracao(request):
+    jsonAjax = json.loads((request.body).decode('utf-8'))
+
+    coordenadas = jsonAjax['coord']
+    qtdIndiv = jsonAjax['qtdIndiv']
+    qtdInteracoes = jsonAjax['qtdInteracoes']
+
+    resultado = main.pso(coordenadas, qtdIndiv, qtdInteracoes)
     key = cc.inicializaConfig()
     context = {
         'key': key.key,
