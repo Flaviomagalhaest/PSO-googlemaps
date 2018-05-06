@@ -1,6 +1,7 @@
 var myLatlng = new google.maps.LatLng(-23.973705011113726,-46.31132125854492);
 var myOptions = { zoom: 13, center: myLatlng}
 var map = '';
+var markers = [];
 var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 
@@ -32,7 +33,8 @@ function codificaPath(pathPy, locais) {
           };
           directionsService.route(request, function(result, status) {
             if (status == 'OK') {
-              directionsDisplay.setDirections(result);
+                deletaMarcadores();
+                directionsDisplay.setDirections(result);
             }
           });                
     }
@@ -40,27 +42,35 @@ function codificaPath(pathPy, locais) {
 
 var coord = Array();
 
+//Adiciona marcadores no mapa
+function adcMarcador(location, map) {
+    var marker = new google.maps.Marker({
+        position: location, 
+        map: map
+    });
+    markers.push(marker);
+}
+
 //Ao carregar pagina, gera gráfico que a cada ponto adicionara uma coordenada na lista
 window.onload = function mostraGrafico() {
     map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
     google.maps.event.addListener(map, 'click', function(event) { 
-        placeMarker(event.latLng, map);
+        adcMarcador(event.latLng, map);
         coord.push(event.latLng.toJSON());
     });
 }
 
 
+//Retirando makers no mapa
+function deletaMarcadores() {
+    for (var i = 0; i < markers.length; i++) {
+      markers[i].setMap(null);
+    }
+    markers = [];
+  }
 
-//Adiciona marcadores no mapa
-function placeMarker(location, map) {
-    var marker = new google.maps.Marker({
-        position: location, 
-        map: map
-    });
-}
 
-
-//ENVIA CORDENADAS E RECEBE DE VOLA OS RESULTADOS DA ROTA
+//Envia coordenadas e recebe de volta os resultados da rota
 function envioCoord() {
     var qtdIndiv = $('#qtdIndiv').val();
     var qtdInteracoes = $('#qtdIteracao').val();
@@ -87,7 +97,7 @@ function limparTelaClick() {
     coord = Array();
     map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
     google.maps.event.addListener(map, 'click', function(event) { 
-        placeMarker(event.latLng, map);
+        adcMarcador(event.latLng, map);
         coord.push(event.latLng.toJSON());
     });
 }
